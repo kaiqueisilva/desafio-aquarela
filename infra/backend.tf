@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket         = "desafio-aquarela"
     key            = "desafio/terraform.tfstate"
-    region         = var.region
+    region         = "us-east-2"
     dynamodb_table = "terraform-lock"
   }
 }
