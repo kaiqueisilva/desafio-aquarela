@@ -6,19 +6,20 @@ module "eks" {
   cluster_version = "1.35"
 
   vpc_id     = var.vpc_id
-  subnet_ids = var.subnet_ids
+  subnet_ids = [
+    var.private_subnet_ids,
+    var.public_subnet_ids
+  ]
 
   eks_managed_node_groups = {
     default = {
       desired_size = 2
       max_size     = 4
       min_size     = 2
+      subnet_ids   = var.private_subnet_ids
 
       instance_types = ["t3.medium"]
-      subnet_ids = [
-        data.aws_subnet.private.id,
-        data.aws_subnet.public.id
-      ]
+
     }
   }
   

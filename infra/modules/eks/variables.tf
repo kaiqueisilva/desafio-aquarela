@@ -3,6 +3,10 @@ variable "vpc_id" {
 }
 
 
-variable "subnet_ids" {
+variable "private_subnet_ids" {
+  type = list(string)
+}
+
+variable "public_subnet_ids" {
   type = list(string)
 }
