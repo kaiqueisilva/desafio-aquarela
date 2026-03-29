@@ -3,7 +3,7 @@ module "eks" {
   version = "~> 20.0"
 
   cluster_name    = "eks-desafio-kaique-v2"
-  cluster_version = "1.29"
+  cluster_version = "1.35"
 
   vpc_id     = var.vpc_id
   subnet_ids = var.subnet_ids
@@ -15,6 +15,10 @@ module "eks" {
       min_size     = 2
 
       instance_types = ["t3.medium"]
+      subnet_ids = [
+        data.aws_subnet.private.id,
+        data.aws_subnet.public.id
+      ]
     }
   }
   
