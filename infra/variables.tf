@@ -8,11 +8,13 @@ variable "vpc_id" {
 }
 
 variable "private_subnet_id" {
-  type = list(string)
+  default = private_subnet_ids[0]
+  type = string
 }
 
 variable "public_subnet_id" {
-  type = list(string)
+  default = public_subnet_id[1]
+  type = string
 }
 
 
