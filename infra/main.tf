@@ -1,11 +1,8 @@
 module "eks" {
     source = "./modules/eks"
     vpc_id = var.vpc_id
-
-    subnet_ids = [
-        var.subnet_private,
-        var.subnet_public
-    ]
+    private_subnet_id = data.aws_subnet.private.id
+    public_subnet_id = data.aws_subnet.public.id
 }
 
 resource "aws_iam_user" "desafio" {

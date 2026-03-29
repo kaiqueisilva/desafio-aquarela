@@ -7,8 +7,11 @@ module "eks" {
 
   vpc_id     = var.vpc_id
   subnet_ids = [
-    var.private_subnet_ids,
-    var.public_subnet_ids
+    var.private_subnet_ids[0],
+    var.private_subnet_ids[1],
+    var.public_subnet_ids[0],
+    var.public_subnet_ids[1]
+
   ]
 
   eks_managed_node_groups = {
@@ -16,7 +19,10 @@ module "eks" {
       desired_size = 2
       max_size     = 4
       min_size     = 2
-      subnet_ids   = var.private_subnet_ids
+      subnet_ids   = [
+        var.private_subnet_ids[0],
+        var.private_subnet_ids[1]
+      ]
 
       instance_types = ["t3.medium"]
 
