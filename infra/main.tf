@@ -9,5 +9,5 @@ module "eks" {
 }
 
 resource "aws_iam_user" "desafio" {
-  name = "desafio_aquarela"
+  name = "desafio_aquarela_kaique"
 }

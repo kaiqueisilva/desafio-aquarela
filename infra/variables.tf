@@ -13,5 +13,5 @@ variable "subnet_private" {
 }
 
 variable "subnet_public"{
-    default = "subnet-0dd52b83cf7a2cc1f"
+    default = "subnet-0753833c113d5de6d"
 }
