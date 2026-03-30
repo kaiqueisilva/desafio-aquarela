@@ -13,9 +13,14 @@ module "eks" {
 
   cluster_endpoint_public_access       = var.endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.public_access_cidrs
-  manage_aws_auth_configmap = true
   
+  manage_aws_auth_configmap = true
 
+  # Desativando recursos que estão gerando 403 (opcionais para o desafio)
+  create_kms_key              = false
+  cluster_encryption_config   = {}
+  cluster_enabled_log_types   = []
+  
   aws_auth_users = [
       {
         userarn  = var.eks_admin_arn
