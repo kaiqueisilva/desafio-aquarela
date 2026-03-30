@@ -11,6 +11,9 @@ module "eks" {
     var.public_subnet_id
   ]
 
+  cluster_endpoint_public_access       = var.endpoint_public_access
+  cluster_endpoint_public_access_cidrs = var.public_access_cidrs
+
   eks_managed_node_groups = {
     default = {
       desired_size = 2
