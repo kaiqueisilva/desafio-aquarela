@@ -19,3 +19,7 @@ variable "public_access_cidrs" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
+
+variable "iam_user_name"{
+  default = "desafio-aquarela-user"
+}

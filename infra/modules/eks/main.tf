@@ -1,8 +1,8 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "~> 19.0"
 
-  cluster_name    = "eks-desafio-v3"
+  cluster_name    = "eks-desafio-v1"
   cluster_version = "1.31"
 
   vpc_id     = var.vpc_id
@@ -13,6 +13,17 @@ module "eks" {
 
   cluster_endpoint_public_access       = var.endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.public_access_cidrs
+  manage_aws_auth_configmap = true
+  
+
+  aws_auth_users = [
+      {
+        userarn  = aws_iam_user.eks_admin.arn
+        username = var.iam_user_name
+        groups   = ["system:masters"]
+      }
+    ]
+
 
   eks_managed_node_groups = {
     default = {

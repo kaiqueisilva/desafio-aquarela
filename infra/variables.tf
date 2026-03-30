@@ -24,3 +24,8 @@ variable "endpoint_public_access" {
   type        = bool
   default     = true
 }
+
+variable "iam_user_name"{
+  default = "desafio-aquarela-user"
+}
+

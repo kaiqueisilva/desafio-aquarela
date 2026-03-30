@@ -7,6 +7,8 @@ module "eks" {
     public_access_cidrs    = var.public_access_cidrs
 }
 
-resource "aws_iam_user" "desafio" {
-  name = "desafio_aquarela_kaique_v4"
+module "iam_user_name" {
+  source = "./modules/iam"
+  
 }
+
