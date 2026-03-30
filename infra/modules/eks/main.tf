@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
-  cluster_name    = "eks-desafio-v2"
+  cluster_name    = "eks-desafio-v3"
   cluster_version = "1.31"
 
   vpc_id     = var.vpc_id
