@@ -32,14 +32,14 @@ module "eks" {
 
   eks_managed_node_groups = {
     default = {
-      desired_size = 4
+      desired_size = 2
       max_size     = 6
-      min_size     = 4
+      min_size     = 2
       subnet_ids   = [
         var.private_subnet_id
       ]
 
-      instance_types = ["t3.medium"]
+      instance_types = ["t3.xlarge"]
 
     }
   }
