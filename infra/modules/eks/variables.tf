@@ -27,3 +27,8 @@ variable "iam_user_name"{
 variable "eks_admin_arn" {
   type = string
 }
+
+variable "region" {
+  type = string
+  
+}
