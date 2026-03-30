@@ -1,11 +1,11 @@
-data "aws_vpc" "vpc-desafio-devops" {
-    id = var.vpc_id
-}
+# data "aws_vpc" "vpc-desafio-devops" {
+#     id = var.vpc_id
+# }
 
-data "aws_subnet" "private" {
-  id = var.private_subnet_id
-}
+# data "aws_subnet" "private" {
+#   id = var.private_subnet_id
+# }
 
-data "aws_subnet" "public" {
-  id = var.public_subnet_id
-}
+# data "aws_subnet" "public" {
+#   id = var.public_subnet_id
+# }
