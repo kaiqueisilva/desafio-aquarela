@@ -23,3 +23,7 @@ variable "public_access_cidrs" {
 variable "iam_user_name"{
   default = "desafio-aquarela-user"
 }
+
+variable "eks_admin_arn" {
+  type = string
+}

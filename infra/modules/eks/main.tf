@@ -18,7 +18,7 @@ module "eks" {
 
   aws_auth_users = [
       {
-        userarn  = aws_iam_user.eks_admin.arn
+        userarn  = var.eks_admin_arn
         username = var.iam_user_name
         groups   = ["system:masters"]
       }
