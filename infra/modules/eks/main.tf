@@ -13,6 +13,12 @@ module "eks" {
 
   cluster_endpoint_public_access       = var.endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.public_access_cidrs
+
+  cluster_addons = {
+    aws-ebs-csi-driver = {
+      most_recent = true
+    }
+  }
   
   manage_aws_auth_configmap = true
 
@@ -33,13 +39,13 @@ module "eks" {
   eks_managed_node_groups = {
     default = {
       desired_size = 2
-      max_size     = 6
+      max_size     = 4
       min_size     = 2
       subnet_ids   = [
         var.private_subnet_id
       ]
 
-      instance_types = ["t3.xlarge"]
+      instance_types = ["t3.medium"]
 
     }
   }
