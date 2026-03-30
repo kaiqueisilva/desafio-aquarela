@@ -3,9 +3,9 @@ data "aws_vpc" "vpc-desafio-devops" {
 }
 
 data "aws_subnet" "private" {
-    id = private_subnet_ids[0]
+  id = var.private_subnet_id[0]
 }
 
 data "aws_subnet" "public" {
-    id = public_subnet_id[1]
+  id = var.public_subnet_id[0]
 }
