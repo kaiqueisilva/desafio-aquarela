@@ -56,7 +56,7 @@ module "eks" {
         var.private_subnet_id
       ]
 
-      instance_types = ["t3.medium"]
+      instance_types = ["t3.xlarge"]
 
     }
   }
