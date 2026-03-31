@@ -1,3 +1,17 @@
+module "ebs_csi_irsa_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+
+  role_name             = "ebs-csi-role-eks-desafio"
+  attach_ebs_csi_policy = true
+
+  oidc_providers = {
+    main = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
+    }
+  }
+}
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
@@ -13,8 +27,6 @@ module "eks" {
 
   cluster_endpoint_public_access       = var.endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.public_access_cidrs
-
-  enable_irsa = true
 
   cluster_addons = {
     aws-ebs-csi-driver = {
@@ -57,19 +69,4 @@ module "eks" {
     Name = "managed-by-terraform"
   }
 
-}
-
-module "ebs_csi_irsa_role" {
-  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "~> 5.39"
-
-  role_name             = "ebs-csi-role-${module.eks.cluster_name}"
-  attach_ebs_csi_policy = true
-
-  oidc_providers = {
-    ex = {
-      provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
-    }
-  }
 }
