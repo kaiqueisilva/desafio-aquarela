@@ -1,5 +1,6 @@
 module "ebs_csi_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.39"
 
   role_name             = "ebs-csi-role-eks-desafio"
   attach_ebs_csi_policy = true
@@ -28,12 +29,7 @@ module "eks" {
   cluster_endpoint_public_access       = var.endpoint_public_access
   cluster_endpoint_public_access_cidrs = var.public_access_cidrs
 
-  cluster_addons = {
-    aws-ebs-csi-driver = {
-      most_recent              = true
-      service_account_role_arn = module.ebs_csi_irsa_role.iam_role_arn
-    }
-  }
+  cluster_addons = {}
   
   manage_aws_auth_configmap = true
 
@@ -69,4 +65,11 @@ module "eks" {
     Name = "managed-by-terraform"
   }
 
+}
+
+resource "aws_eks_addon" "ebs_csi" {
+  cluster_name             = module.eks.cluster_name
+  addon_name               = "aws-ebs-csi-driver"
+  service_account_role_arn = module.ebs_csi_irsa_role.iam_role_arn
+  depends_on               = [module.eks]
 }
