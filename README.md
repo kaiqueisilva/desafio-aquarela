@@ -81,5 +81,5 @@ v
 ## 🐳 Build da Aplicação
 
 ```bash
-docker build -t seuuser/node-app:latest .
-docker push seuuser/node-app:latest
+docker build -t user/node-app:latest .
+docker push user/node-app:latest

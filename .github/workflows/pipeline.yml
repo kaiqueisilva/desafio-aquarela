@@ -26,7 +26,7 @@ jobs:
           IMAGE_NAME: kaiques/node-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest ./App
+          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest ./
           docker push $IMAGE_NAME:$IMAGE_TAG
           docker push $IMAGE_NAME:latest
 
