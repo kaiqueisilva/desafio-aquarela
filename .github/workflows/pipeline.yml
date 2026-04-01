@@ -1,0 +1,49 @@
+name: Build and Deploy to EKS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Image
+        env:
+          IMAGE_NAME: kaiques/node-app
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest ./App
+          docker push $IMAGE_NAME:$IMAGE_TAG
+          docker push $IMAGE_NAME:latest
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Update Kubeconfig
+        run: |
+          aws eks update-kubeconfig --name eks-desafio-v0 --region ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to EKS
+        env:
+          IMAGE_NAME: kaiques/node-app
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+
+          sed -i "s|IMAGE_PLACEHOLDER|docker.io/$IMAGE_NAME:$IMAGE_TAG|g" k8s/deployment.yaml
+        
+          kubectl apply -f k8s/deployment.yaml
+          kubectl rollout status deployment/node-app
