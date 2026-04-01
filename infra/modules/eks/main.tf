@@ -33,7 +33,6 @@ module "eks" {
   
   manage_aws_auth_configmap = true
 
-  # Desativando recursos que estão gerando 403 (opcionais para o desafio)
   create_kms_key              = false
   cluster_encryption_config   = {}
   cluster_enabled_log_types   = []
