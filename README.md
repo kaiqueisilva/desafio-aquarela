@@ -69,7 +69,7 @@ v
 
 
 ├── app/
-│ └── index.js
+│ └── app.js
 ├── k8s/
 │ ├── deployment.yaml
 ├── Dockerfile
