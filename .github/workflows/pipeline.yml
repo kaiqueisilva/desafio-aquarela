@@ -3,6 +3,10 @@ name: Build and Deploy to EKS
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'App/**'
+      - 'k8s/**'
+      - '.github/workflows/pipeline.yml'
 
 jobs:
   deploy:
@@ -42,8 +46,6 @@ jobs:
           IMAGE_NAME: kaiques/node-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-
           sed -i "s|IMAGE_PLACEHOLDER|docker.io/$IMAGE_NAME:$IMAGE_TAG|g" k8s/deployment.yaml
-        
           kubectl apply -f k8s/deployment.yaml
           kubectl rollout status deployment/node-app
