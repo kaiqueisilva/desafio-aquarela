@@ -48,4 +48,4 @@ jobs:
         run: |
           sed -i "s|IMAGE_PLACEHOLDER|docker.io/$IMAGE_NAME:$IMAGE_TAG|g" k8s/deployment.yaml
           kubectl apply -f k8s/deployment.yaml
-          kubectl rollout status deployment/node-app
+          kubectl rollout status deployment/node-app -n node-app
