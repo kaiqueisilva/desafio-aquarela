@@ -35,7 +35,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
- # Listar arquivos para debug (ajuda a identificar se a pasta/arquivo tem nome diferente)         aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Update Kubeconfig
         run: |
@@ -46,10 +46,6 @@ jobs:
           IMAGE_NAME: kaiques/node-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          
-          ls -R
-          
           sed -i "s|IMAGE_PLACEHOLDER|docker.io/$IMAGE_NAME:$IMAGE_TAG|g" k8s/deployment.yaml
-          
           kubectl apply -f k8s/deployment.yaml
           kubectl rollout status deployment/node-app
